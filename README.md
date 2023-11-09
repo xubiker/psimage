@@ -1,5 +1,5 @@
 # psimage
-PSImage is a python package to work with images in ```psi``` format, that are used in *pathscribe* software.
+PSImage is a python package to work with images in ```psi``` format, that is used in *pathscribe* software.
 
 ## Installation
 
