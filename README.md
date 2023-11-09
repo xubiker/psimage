@@ -3,6 +3,7 @@ PSImage is a python package to work with images in ```psi``` format, that are us
 
 ## Installation
 
+Download wheels distro from the [releases section](https://github.com/xubiker/psimage/releases), then install it:
 ```
 pip install psimage-0.0.1-py3-none-any.whl
 ```
