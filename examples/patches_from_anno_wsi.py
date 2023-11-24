@@ -33,14 +33,14 @@ if __name__ == "__main__":
             psim.patch_gen_random(224, region=anno_polygon, n_patches=100)
         ):
             patch_name = f"{k+1}_{anno_cls}_{i+1}.jpg"
-            patch.to_image().save(out_path_dense / patch_name)
+            patch.to_image().save(out_path_rnd / patch_name)
 
         # example of dense patch extraction from each annotated region
         for i, patch in enumerate(
             psim.patch_gen_dense(224, stride=112, region=anno_polygon)
         ):
             patch_name = f"{k+1}_{anno_cls}_{i+1}.jpg"
-            patch.to_image().save(out_path_rnd / patch_name)
+            patch.to_image().save(out_path_dense / patch_name)
 
     print("All patches extracted.")
     anno_json.close()
