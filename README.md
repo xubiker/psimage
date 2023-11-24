@@ -8,11 +8,10 @@ Download wheels distro from the [releases section](https://github.com/xubiker/ps
 pip install psimage-0.1.0-py3-none-any.whl
 ```
 
-## Sample data
+## Data
 Sample images in ```psi``` format are provided in a [data](./data/) folder of this repository.
-Additional images can be found here:
-- https://disk.yandex.ru/d/mu5ciY3dBG51jQ (PATH-DT-MSU WSS1 dataset),
-- https://disk.yandex.ru/d/x2rstRs26qx_mQ (PATH-DT-MSU WSS2 dataset).
+
+PATH-DT-MSU WSS1 (v1), WSS2 (v1) datasets in ```psi``` format with polygonal annotations in ```json``` format are available at ```sinope``` server ```/home/data_repository/PATH-DT-MSU_dev/``` and also at yandex disk: [WSS1](https://disk.yandex.ru/d/2jmKiLED22aHSw), [WSS2](https://disk.yandex.ru/d/5oW4Ezo5c9PbOQ).
 
 ## Usage
 
