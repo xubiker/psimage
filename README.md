@@ -8,6 +8,8 @@ Download wheels distro from the [releases section](https://github.com/xubiker/ps
 pip install psimage-0.1.0-py3-none-any.whl
 ```
 
+**The minimal required version of python is 3.10.**
+
 ## Data
 Sample images in ```psi``` format are provided in a [data](./data/) folder of this repository.
 
@@ -158,7 +160,7 @@ with PSImage(p) as psim:
 
 ### Export from ```psi``` format
 You can export all tiles of an image to a given folder using ```export_tiles``` method.
-Or you can export a downscaled version of the image using ```export_simple``` method. In this case you either pass the downscale factor or the maximum size of the image (considered on the larger side).
+Or you can export a downscaled version of the image using ```export_simple``` method. In this case you either pass the downscale factor or the maximum size of the image (considered on the larger side). This method also have ```auto_downscale``` parameter, that if true automatically downscales the image to the allowed limit if it is too big.
 ```python
 from pathlib import Path
 from psimage import PSImage
@@ -174,6 +176,8 @@ with PSImage(p) as psim:
     psim.export_simple(Path("../data/out/export_2.jpg"), max_size=2000)
 
 ```
+
+Simular to ```export_simple``` method there are ```to_array``` and ```to_image``` methods that take 3 optional params (```scale```, ````max_side````, ```auto_downscale```) and return the PIL Image object or an numpy array. If ```auto_downscale=False``` and the traget size (downscaled size that is defined by ```scale``` or ```max_side``` or source size if both ```scale=None``` and ```max_side=None```) exceeds the psimage limit an exception is thrown.  
 
 ### Extracting patches
 
@@ -200,3 +204,27 @@ In case of ```patch_gen_random``` you can specify the ```n_patches``` parameter 
 When extracting patches according to polygons you can also specify the ```region_intersection``` parameter, which sets the area treshold for "accepting the patch to be inside polygon".
 
 Examples of extracting patches with polygonal annotations are provided in [patches_from_anno_simple.py](./examples/patches_from_anno_simple.py) and [patches_from_anno_wsi.py](./examples//patches_from_anno_wsi.py) scripts. In case of WSI the json annotation from PATH-DT-MSU dataset is used.
+
+### Visualization of annotations
+Psimage package allows to perform visualization of polygonal annotations of ```.psi``` iamges. Since images ```.psi``` can be of very high resolution the visualization is performed for a downscaled image and is called an *annotation preview*.
+
+Each object of annotation is defined as a string label and a list of coordinates pairs, that form a polygon.
+
+In order to create a visualization call ```annotations_preview``` method of ```PSImage```. This method has several params:
+1. ```annotations``` - either a path to json file with annotations or an iterable of tuples of label and numpy array of vertices.
+2. ```scale```, ```max_side```, ```auto_downscale``` params that control downscale. Simular to the ones in  ```to_array```, ```to_image```, ```export_simple``` methods.
+3. ```anno_description``` - optional parameter of ```AnnoDescription``` object storing the description of annotation, that includes classes and colors. If ```anno_description=None``` description will be built automatically.
+4. ```vis_params``` - optional parameter of ```AnnoVisualizerParams``` object controlling the visualization (line width, legend location, fill the polygons or not, with what transperrency).
+
+
+```AnnoDescription``` class is capable for storing labels, descriptions, alternate labels and colors. If you need, you can set it up manually by yourself. But it also can be constructed automatically for the existing dataset. In this case all ```.json``` files in the dataset will be analyzed, a set of labels will be extracted, for each label a distinct color will be chosen. To do it just call ```auto_from_files``` class method and pass the path to the dataset (or a single ```.json``` file):
+
+```python
+from psimage.base.anno_visualizer import AnnoDescription
+
+anno_dsc = AnnoDescription.auto_from_files(ds_path)
+```
+and use the created ```AnnoDescription``` object when calling ```annotations_preview``` method of PSImage.
+
+
+An example of visualizing the annotations for [PATH-DT-MSU WSS1, WSS2 datasets](https://imaging.cs.msu.ru/en/research/histology/path-dt-msu) is provided in [visualize_annotations.py](./examples/visualize_annotations.py) example script.
