@@ -46,14 +46,17 @@ if __name__ == "__main__":
 
         # -- get certain tile as Image object
         tile_dsc = tiles[int(len(tiles) // 2)]
-        tile_arr = psim.get_tile(
-            tile_dsc.z, tile_dsc.target_y, tile_dsc.target_x
-        )
+        tile_arr = psim.get_tile(tile_dsc.z, tile_dsc.pos_y, tile_dsc.pos_x)
         tile_img = Image.fromarray(tile_arr)
         tile_img.show()
 
         # -- you can also access tile by code
         tile_arr = psim.get_tile_by_code(tile_dsc.code)
+        tile_img = Image.fromarray(tile_arr)
+        tile_img.show()
+
+        # -- you can also access tile by tile descriptor
+        tile_arr = psim.get_tile_by_dsc(tile_dsc)
         tile_img = Image.fromarray(tile_arr)
         tile_img.show()
 

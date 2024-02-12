@@ -110,7 +110,7 @@ with PSImage(p) as psim:
 
 ```
 
-To get the tile content as *numpy array* *PIL Image* object using tile descriptor you can either call method ```get_tile``` and pass ```z, y, x``` coordinates of the tile to it or call ```get_tile_by_code``` method and pass descriptor's code to it.
+To get the tile content as *numpy array* or *PIL Image* object using tile descriptor you can either call method ```get_tile``` and pass ```z, y, x``` coordinates of the tile to it or call ```get_tile_by_code``` method and pass descriptor's code to it or call ```get_tile_by_dsc``` and pass the descriptor.
 
 ```python
 from pathlib import Path
@@ -123,13 +123,17 @@ with PSImage(p) as psim:
     tile_dsc = tiles[int(len(tiles) // 2)]
 
     # -- access tile by coordinates
-    tile_arr = psim.get_tile(tile_dsc.z, tile_dsc.target_y, tile_dsc.target_x)
+    tile_arr = psim.get_tile(tile_dsc.z, tile_dsc.pos_y, tile_dsc.pos_x)
     print(tile_arr.shape, tile_arr.dtype)
     tile_img = Image.fromarray(tile_arr)
     tile_img.show()
 
     # -- access tile by code
     tile_img = psim.get_tile_by_code(tile_dsc.code)
+
+    # -- access tile by descriptor
+    tile_img = psim.get_tile_by_dsc(tile_dsc)
+
 ```
 
 
