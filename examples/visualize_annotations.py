@@ -6,7 +6,7 @@ drawn polygonal annotations.
 from pathlib import Path
 
 from psimage import PSImage
-from psimage.base.anno_visualizer import AnnoDescription
+from psimage.features.vis.anno_visualizer import AnnoDescription
 
 if __name__ == "__main__":
     # Define path to the dataset, e.g. PATH-DT-MSU.

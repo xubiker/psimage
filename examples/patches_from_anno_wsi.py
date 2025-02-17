@@ -11,7 +11,7 @@ from pathlib import Path
 
 import numpy as np
 
-from psimage import PSImage
+from psimage import PSImage, PSImageException
 
 if __name__ == "__main__":
     ds_path = Path("../data/")
@@ -29,11 +29,14 @@ if __name__ == "__main__":
         print(f"processing region {k + 1} ({anno_cls})")
 
         # example of random patch extraction from each annotated region
-        for i, patch in enumerate(
-            psim.patch_gen_random(224, region=anno_polygon, n_patches=100)
-        ):
-            patch_name = f"{k+1}_{anno_cls}_{i+1}.jpg"
-            patch.to_image().save(out_path_rnd / patch_name)
+        try:
+            for i, patch in enumerate(
+                psim.patch_gen_random(224, region=anno_polygon, n_patches=100)
+            ):
+                patch_name = f"{k+1}_{anno_cls}_{i+1}.jpg"
+                patch.to_image().save(out_path_rnd / patch_name)
+        except PSImageException as e:
+            print(e)
 
         # example of dense patch extraction from each annotated region
         for i, patch in enumerate(

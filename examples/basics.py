@@ -2,7 +2,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from psimage.image import PSImage
+from psimage import PSImage
 
 if __name__ == "__main__":
     # -- setup path to psi file
@@ -77,7 +77,7 @@ if __name__ == "__main__":
         # -- you can export a downscaled version of PSImage as Image to file
         # -- you can specify scale or desired resolution
         psim.export_simple(Path("../data/out/export_1.jpg"), scale=0.1)
-        psim.export_simple(Path("../data/out/export_2.jpg"), max_size=2000)
+        psim.export_simple(Path("../data/out/export_2.jpg"), max_side=2000)
 
     # # -- if you don't want to use 'with' statement you can close PSImage manually
     psimage = PSImage(p)
